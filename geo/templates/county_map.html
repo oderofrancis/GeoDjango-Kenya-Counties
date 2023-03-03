@@ -1,0 +1,43 @@
+{% load leaflet_tags %}
+
+{% leaflet_js %}
+
+{% leaflet_css %}
+
+<style type="text/css">
+    #gis{
+        width: 100%;
+        height: 600px;
+    }
+</style>
+
+<script>
+
+
+    function our_layers(map,options){
+
+        const CyclOSM = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+            });
+
+        /* data */
+
+        const data =  new L.GeoJSON.AJAX("{% url 'county_data' %}",{
+            pointToLayer: function(feature, latlng) {
+                var content = "<table class='table table-striped table-bordered table-condensed'>" 
+                    + "<tr><th>County:</th><td>" + feature.properties.name + "</td></tr>" 
+                    + "<tr><th>Code:</th><td>" + feature.properties.code + "</td></tr>"
+                + "</table>";
+                marker.bindPopup(content);
+                marker.on({
+                    click: function(e) {
+                        marker.openPopup();
+                    }
+                });
+            },
+        });
+    }
+</script>
+
+
+
+{% leaflet_map "gis" callback="window.our_layers" %}

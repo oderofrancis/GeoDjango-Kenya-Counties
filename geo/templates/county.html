@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}County{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <br>
+
+            <div class="card card-body" style="height: 600px;">
+                <div class="card-header" style="font-size :20px; text-align:center;">
+                    <b  style="font-size :20px; text-align:center;">County</b>
+                </div>
+                
+                <div class="card-body" style="max-height: 600px;overflow: scroll; overflow-x:hidden;overflow-y:auto;">
+                
+                    <form>
+                
+                        {% csrf_token %}
+                
+                        <!-- names of county -->
+                
+                            <div style="float: left;width:65%;">
+                
+                                {% for con in countyNames %}
+                
+                                    <table style="border-width: 6px; border: #333;width:100%;">
+                
+                                    <tr>
+                                            <input class="btn btn-warning" value={{con}} style="float: left;width:100%;margin:5px;" >
+                                    </tr>
+                
+                                    </table>
+                
+                                {% endfor %}
+                
+                            </div>
+                    </form>
+                
+                    <form >
+                
+                        {% csrf_token %}
+                
+                        <!-- names of country -->
+                
+                        <div style="float: left;width:35%;">
+                
+                            {% for con in countyValues %}
+                
+                                <table style=" border: #333;width:100%;">
+                
+                                    <tr>
+                
+                                    <input class="btn btn-secondary" value={{con}}  style="float: right;width:80%;margin:5px;">
+                
+                                    </tr>
+                
+                                </table>
+                                
+                
+                            {% endfor %}
+                
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+
+        <br>
+
+        <div class="col-md-9">
+            <br>
+
+            <div class="card card-body" style="height: 600px;">
+                <br>
+
+                {% load leaflet_tags %}
+
+                {% leaflet_js %}
+                
+                {% leaflet_css %}
+                
+                <style type="text/css">
+                    #gis{
+                        width: 100%;
+                        height: 600px;
+                    }
+                </style>
+                
+                <script>
+                
+                
+                    function our_layers(map,options){
+                
+                        const CyclOSM = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+                            });
+                
+                        /* data */
+                
+                        const data =  new L.GeoJSON.AJAX("{% url 'county_data' %}",{
+                            
+                        }).addTo(map);
+                    }
+                </script>
+
+                <script src="https://unpkg.com/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
+                
+                {% leaflet_map "gis" callback="window.our_layers" %}
+
+            </div>
+            
+        </div>
+    </div>
+
+    <hr>
+    
+</div>
+
+
+{% endblock %}
