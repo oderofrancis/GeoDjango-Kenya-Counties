@@ -27,26 +27,32 @@ To install GeoDjango-Kenya-Counties, follow these steps:
 
   `pip install -r requirements.txt
   `
-5.Create a database.
+4.Create a database.
 
   `python manage.py migrate`
   
-7.Load the data for Kenya's counties.
+  
+5.Load the data for Kenya's counties.
 
   `python manage.py shell`
 
-<!-- for county -->
+For counties
 
 `from geo import county
 county.run()
 `
-<!-- for constituency -->
+
+For constituencues
+
 `from geo import const
 const.run()
 `
-8. Run server
+
+6. Run server
 
 `python manage.py runserver`
+
+
 ## Usage
 Once you have installed GeoDjango-Kenya-Counties, you can use it to display Kenya's counties on a map. You can also add additional features and functionality to the web application, such as searching for a specific county or displaying additional information about each county.
 
