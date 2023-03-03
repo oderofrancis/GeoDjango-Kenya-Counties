@@ -15,24 +15,25 @@ To install GeoDjango-Kenya-Counties, follow these steps:
 
 1.Clone this repository to your local machine.
 
-`git clone https://github.com/username/GeoDjango-Kenya-Counties.git`
+  `git clone https://github.com/username/GeoDjango-Kenya-Counties.git`
 
 2.Create a virtual environment and activate it.
 
-`python3 -m venv env
-source env/bin/activate
-`
+  `python3 -m venv env
+  source env/bin/activate
+  `
+
 3.Install the required packages.
 
-`pip install -r requirements.txt
-`
+  `pip install -r requirements.txt
+  `
 5.Create a database.
 
-`python manage.py migrate
-`
+  `python manage.py migrate`
+  
 7.Load the data for Kenya's counties.
 
-`python manage.py shell`
+  `python manage.py shell`
 
 <!-- for county -->
 
