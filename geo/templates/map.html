@@ -1,0 +1,88 @@
+{% load leaflet_tags %}
+
+{% leaflet_js %}
+
+{% leaflet_css %}
+
+<style type="text/css">
+    #gis{
+        width: 100%;
+        height: 600px;
+    }
+</style>
+
+<script>
+
+
+    function our_layers(map,options){
+
+        const CyclOSM = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+            });
+
+        /* data */
+
+        const countyOptions = {
+			color: "#3385ff",
+			weight: 3,
+			opacity: 1,
+			fillOpacity: 0,
+		};
+
+		var countyname = '{{countynames}}';
+
+		async function getData() {
+			try {
+				let res = await fetch(`{% url 'county_data' %}`);
+				let data = await res.json();
+				let county_shp;
+				for (let i = 0; i < data.features.length; i++){
+					const feature = data.features[i];
+					if (feature.properties.name === countyname) {
+						county_shp = L.geoJSON(feature, {
+							style: countyOptions,
+						}).addTo(map);
+
+                        console.log(feature.properties.name);
+					}
+				}
+				// get the boundary of the county shape
+				const bounds = county_shp.getBounds();
+				// zoom to the boundary
+				map.fitBounds(bounds);
+			} catch(err) {
+				console.error(err);
+			}
+		}
+		getData();
+
+        // constituency
+
+        async function getConst() {
+			try {
+				let res = await fetch(`{% url 'const_data' %}`);
+				let data = await res.json();
+				let county_shp;
+
+				for (let i = 0; i < data.features.length; i++){
+					const feature = data.features[i];
+					if (feature.properties.county === countyname) {
+						county_shp = L.geoJSON(feature, {
+
+						}).addTo(map);
+
+                        console.log(feature.properties.county);
+					}
+				}
+			} catch(err) {
+				console.error(err);
+			}
+		}
+		getConst();
+
+    }
+
+</script>
+
+<script src="https://unpkg.com/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
+
+{% leaflet_map "gis" callback="window.our_layers" %}

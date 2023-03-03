@@ -18,12 +18,37 @@ def county(request):
     countyNames = data['name'].tolist()
     countyValues = data['code'].tolist()
 
+    showmap = 'True'
+
     context = {
         'countyNames':countyNames,
         'countyValues':countyValues,
+        'showmap':showmap,
     }
 
     return render(request,'county.html',context)
+
+def countydata(request):
+
+    countynames = request.POST.get('countynames')
+
+    data = serialize('geojson',County.objects.all())
+    data = gpd.read_file(data)
+    data = data.sort_values(by=['code'], ascending=True)
+    countyNames = data['name'].tolist()
+    countyValues = data['code'].tolist()
+
+    showmap = 'False'
+
+    context = {
+        'countynames':countynames,
+        'countyNames':countyNames,
+        'countyValues':countyValues,
+        'showmap':showmap,
+    }
+
+    return render(request,'county.html',context)
+
 
 def const(request):
     return render(request,'const.html')
