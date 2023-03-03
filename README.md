@@ -4,30 +4,31 @@ GeoDjango-Kenya-Counties is a project that provides geographic data for Kenya's 
 ## Requirements
 To use GeoDjango-Kenya-Counties, you need to have the following installed on your system:
 
-Python 3.x
-Django 2.x or higher
-GDAL
-GeoDjango
+1. Python 3.x
+2. Django 2.x or higher
+3. GDAL
+4. GeoDjango
 
 ## Installation
+
 To install GeoDjango-Kenya-Counties, follow these steps:
 
 1.Clone this repository to your local machine.
 
 `git clone https://github.com/username/GeoDjango-Kenya-Counties.git`
 
-2. Create a virtual environment and activate it.
+2.Create a virtual environment and activate it.
 
 `python3 -m venv env
 source env/bin/activate
 `
-3. Install the required packages.
+3.Install the required packages.
 `pip install -r requirements.txt
 `
-5. Create a database.
+5.Create a database.
 `python manage.py migrate
 `
-7. Load the data for Kenya's counties.
+7.Load the data for Kenya's counties.
 `python manage.py shell`
 
 <!-- for county -->
