@@ -21,12 +21,7 @@
 
         /* data */
 
-        const countyOptions = {
-			color: "#3385ff",
-			weight: 3,
-			opacity: 1,
-			fillOpacity: 0,
-		};
+        
 
 		var countyname = '{{countynames}}';
 
@@ -39,10 +34,20 @@
 					const feature = data.features[i];
 					if (feature.properties.name === countyname) {
 						county_shp = L.geoJSON(feature, {
-							style: countyOptions,
+							style: function(feature) {
+								return {
+									color: 'black',
+									weight: 2,
+									opacity: 0.1,
+									fillOpacity: 0.01,
+									fillColor: 'black'
+								}
+							}
 						}).addTo(map);
 
-                        console.log(feature.properties.name);
+						// console.log(county_shp.options.style);
+
+                        // console.log(feature.properties.name);
 					}
 				}
 				// get the boundary of the county shape
@@ -67,10 +72,23 @@
 					const feature = data.features[i];
 					if (feature.properties.county === countyname) {
 						county_shp = L.geoJSON(feature, {
+							style: function(feature) {
+								return {
+									color: 'black',
+									weight: 2,
+									opacity: 0.8,
+									fillOpacity: 0.01,
+									fillColor: 'black'
+								}
+							},
+
+							onEachFeature: function(feature, layer) {
+								
+							},
 
 						}).addTo(map);
 
-                        console.log(feature.properties.county);
+                        // console.log(feature.properties.county);
 					}
 				}
 			} catch(err) {
