@@ -4,4 +4,47 @@
 
 {% block content %}
 
+<br>
+
+<div class="card" style="max-height: 650px; overflow: hidden; overflow: auto;">
+    <div class="card-header">
+        <h4 style="font-size :30px; text-align:center;">Counties</h4>
+       
+    </div>
+
+    <div class="card card-body" style="max-height: 650px; overflow: hidden; overflow: auto;">
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+              <tr>
+                <th>ID</th>
+                <th>County</th>
+                <th>Code</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+        
+            <tbody>
+                {% for data in data %}
+                <tr>
+                  <td>{{data.id}}</td>
+                  <td>{{data.name}}</td>
+                  <td>{{data.code}}</td>
+                <td>
+                    <a href="#" class="btn btn-primary btn-rounded" style="color: azure;">View</a>
+                    <a href="#" class="btn btn-success btn-rounded" style="color: azure;">Update</a>
+                    <a href="#" class="btn btn-danger btn-rounded" style="color: azure;">Delete</a>
+                  </td>
+                
+                
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<hr>
+
+<br>
+
 {% endblock %}

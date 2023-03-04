@@ -66,10 +66,20 @@ def const(request):
     return render(request,'const.html',context)
 
 def county_table(request):
-    return render(request,'county_table.html')
+    data = County.objects.all()
+
+    context = {
+        'data':data
+    }
+    return render(request,'county_table.html',context)
 
 def const_table(request):
-    return render(request,'const_table.html')
+    data = Constituency.objects.all()
+
+    context = {
+        'data':data
+    }
+    return render(request,'const_table.html',context)
 
 
 def county_data(request):
