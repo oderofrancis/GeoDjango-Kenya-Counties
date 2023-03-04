@@ -1,13 +1,94 @@
 {% extends 'base.html' %}
 
-{% load leaflet_tags %}
+    {% block title %}
+        Constituency
+    {% endblock %}
 
-{% leaflet_js %}
-
-{% leaflet_css %}
-
-{% block title %}Constituency{% endblock %}
 
 {% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <br>
+
+            <div class="card card-body" style="height: 600px;">
+                <div class="card-header" style="font-size :20px; text-align:center;">
+                    <b  style="font-size :20px; text-align:center;">Constituency</b>
+                </div>
+                
+                <div class="card-body" style="max-height: 600px;overflow: scroll; overflow-x:hidden;overflow-y:auto;">
+                
+                    <form>
+
+                        {% csrf_token %}
+            
+                        <!-- names of county -->
+            
+                            <div style="float: left;width:65%;">
+            
+                               {% for con in countyNames %}
+            
+                                  <table style="border-width: 6px; border: #333;width:100%;">
+            
+                                    <tr>
+                                          <input class="btn btn-warning" type="submit" value={{con}} name="countynames" style="float: left;width:100%;margin:5px;" >
+                                    </tr>
+            
+                                  </table>
+            
+                               {% endfor %}
+            
+                            </div>
+                    </form>
+            
+                    <form >
+            
+                        {% csrf_token %}
+            
+                        <!-- names of country -->
+            
+                        <div style="float: left;width:35%;">
+            
+                           {% for con in countyValues %}
+            
+                              <table style=" border: #333;width:100%;">
+            
+                                 <tr>
+            
+                                    <input class="btn btn-secondary" value={{con}}  style="float: right;width:80%;margin:5px;">
+            
+                                 </tr>
+            
+                              </table>
+                              
+            
+                           {% endfor %}
+            
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+
+        <br>
+
+        <div class="col-md-9">
+            <br>
+
+            <div class="card card-body" style="height: 600px;">
+                <br>
+                {% include 'const_map.html' %}
+
+            </div>
+            
+        </div>
+    </div>
+
+    <hr>
+    
+</div>
+
 
 {% endblock %}

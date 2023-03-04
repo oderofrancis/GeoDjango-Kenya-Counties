@@ -82,8 +82,19 @@
 								}
 							},
 
-							onEachFeature: function(feature, layer) {
-								
+							onEachFeature:function(feature,layer){
+								if(feature.properties){
+									var content="<table class='table table-striped table-bordered table-condensed'>" 
+										+"<tr><th>County:</th><td>" + feature.properties.county+ "</td></tr>" 
+										+ "<tr><th>Const:</th><td>" + feature.properties.const  + "</td></tr>"
+										+ "<tr><th>Const Code:</th><td>" + feature.properties.const_code  + "</td></tr>"
+									+"<table>";
+									layer.on({
+										click: function (e) {
+											layer.bindPopup(content).openPopup(e.latlng);
+										}
+									});
+								}
 							},
 
 						}).addTo(map);

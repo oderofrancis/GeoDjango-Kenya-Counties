@@ -51,7 +51,19 @@ def countydata(request):
 
 
 def const(request):
-    return render(request,'const.html')
+    data = serialize('geojson',Constituency.objects.all())
+    data = gpd.read_file(data)
+
+    # ascending order
+    data = data.sort_values(by=['const_code'], ascending=True)
+    countyNames = data['const'].tolist()
+    countyValues = data['const_code'].tolist()
+
+    context = {
+        'countyNames':countyNames,
+        'countyValues':countyValues,
+    }
+    return render(request,'const.html',context)
 
 def county_table(request):
     return render(request,'county_table.html')

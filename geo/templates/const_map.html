@@ -21,7 +21,7 @@
 
         /* data */
 
-        const data =  new L.GeoJSON.AJAX("{% url 'county_data' %}",{
+        const data =  new L.GeoJSON.AJAX("{% url 'const_data' %}",{
             style: function(feature) {
                 return {
                     color: 'black',
@@ -35,8 +35,10 @@
             onEachFeature:function(feature,layer){
                 if(feature.properties){
                     var content="<table class='table table-striped table-bordered table-condensed'>" 
-                        +"<tr><th>County:</th><td>" + feature.properties.name+ "</td></tr>" 
-                        + "<tr><th>Code:</th><td>" + feature.properties.code  + "</td></tr>"
+                        +"<tr><th>County:</th><td>" + feature.properties.county+ "</td></tr>" 
+                        + "<tr><th>Code:</th><td>" + feature.properties.county_code  + "</td></tr>"
+                        + "<tr><th>Const:</th><td>" + feature.properties.const  + "</td></tr>"
+                        + "<tr><th>Const Code:</th><td>" + feature.properties.const_code  + "</td></tr>"
                     +"<table>";
                     layer.on({
                         click: function (e) {
