@@ -84,25 +84,96 @@
 
         <br>
 
+        {% if showmap == 'True' %}
+
         <div class="col-md-9">
             <br>
 
             <div class="card card-body" style="height: 600px;">
-                <br>
-
-                {% if showmap == 'True' %}
 
                 {% include 'county_map.html' %}
-
-                {% elif showmap == 'False' %}
-
-                {% include 'map.html' %}
-
-                {% endif %}
 
             </div>
             
         </div>
+
+        {% elif showmap == 'False' %}
+
+        <div class="col-md-6">
+            <br>
+
+            <div class="card card-body" style="height: 600px;">
+
+                {% include 'map.html' %}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <br>
+            <div class="card card-body" style="height: 600px;">
+                <div class="card-header" style="font-size :20px; text-align:center;">
+                    <b  style="font-size :20px; text-align:center;">{{countynames}} CONSTITUENCY</b>
+                </div>
+
+                <!-- constituencies -->
+
+                <div class="card-body" style="max-height: 600px;overflow: scroll; overflow-x:hidden;overflow-y:auto;">
+                
+                    <form>
+
+                        {% csrf_token %}
+            
+                        <!-- names of county -->
+            
+                            <div style="float: left;width:65%;">
+            
+                               {% for con in constNames %}
+            
+                                  <table style="border-width: 6px; border: #333;width:100%;">
+            
+                                    <tr>
+                                          <input class="btn btn-info" type="submit" value={{con}} style="float: left;width:100%;margin:5px;" >
+                                    </tr>
+            
+                                  </table>
+            
+                               {% endfor %}
+            
+                            </div>
+                    </form>
+            
+                    <form >
+            
+                        {% csrf_token %}
+            
+                        <!-- names of country -->
+            
+                        <div style="float: left;width:35%;">
+            
+                           {% for con in constValues %}
+            
+                              <table style=" border: #333;width:100%;">
+            
+                                 <tr>
+            
+                                    <input class="btn btn-secondary" value={{con}}  style="float: right;width:80%;margin:5px;">
+            
+                                 </tr>
+            
+                              </table>
+                              
+            
+                           {% endfor %}
+            
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+
+        {% endif %}
     </div>
 
     <hr>

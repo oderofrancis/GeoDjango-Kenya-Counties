@@ -38,6 +38,18 @@ def countydata(request):
     countyNames = data['name'].tolist()
     countyValues = data['code'].tolist()
 
+    # constituency
+
+    datas = serialize('geojson',Constituency.objects.all())
+    datas = gpd.read_file(datas)
+
+    datas = datas[datas['county']==countynames]
+    datas = datas.sort_values(by=['const_code'], ascending=True)
+    constNames = datas['const'].tolist()
+    constValues = datas['const_code'].tolist()
+
+    # map data
+
     showmap = 'False'
 
     context = {
@@ -45,6 +57,9 @@ def countydata(request):
         'countyNames':countyNames,
         'countyValues':countyValues,
         'showmap':showmap,
+
+        'constNames':constNames,
+        'constValues':constValues,
     }
 
     return render(request,'county.html',context)
