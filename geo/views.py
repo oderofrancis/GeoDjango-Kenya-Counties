@@ -45,7 +45,7 @@ def countydata(request):
 
     datas = datas[datas['county']==countynames]
     datas = datas.sort_values(by=['const_code'], ascending=True)
-    constNames = datas['const'].tolist()
+    constNames = datas['const'].str.replace(' ','-').tolist()
     constValues = datas['const_code'].tolist()
 
     # map data
