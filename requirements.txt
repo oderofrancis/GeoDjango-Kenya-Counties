@@ -9,6 +9,7 @@ django-jazzmin==2.6.0
 django-leaflet==0.28.3
 Fiona==1.9.1
 geopandas==0.12.2
+gunicorn==20.1.0
 munch==2.5.0
 numpy==1.24.2
 packaging==23.0
@@ -20,3 +21,4 @@ pytz==2022.7.1
 shapely==2.0.1
 six==1.16.0
 sqlparse==0.4.3
+whitenoise==6.4.0
