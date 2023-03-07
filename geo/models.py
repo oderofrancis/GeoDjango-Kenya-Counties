@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Manager as GeoManager
 from django.contrib.gis.db import models
 
 # Create your models here.
@@ -27,3 +28,18 @@ class Constituency(models.Model):
     
     class Meta:
         verbose_name_plural = 'Constituency'
+
+class Incidence(models.Model):
+    title = models.CharField(max_length=200)
+    Constituency = models.ForeignKey(Constituency, on_delete=models.CASCADE)
+    description =models.TextField(max_length=250, null=True)
+    date_reported = models.DateTimeField(auto_now_add=True)
+    location = models.PointField(srid=4326)
+    objects = GeoManager()
+
+    
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name_plural = 'Incidence'

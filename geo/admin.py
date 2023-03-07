@@ -13,3 +13,8 @@ class ConstituencyAdmin(LeafletGeoAdmin):
     list_display = ('const','county','const_code')
 
 admin.site.register(Constituency,ConstituencyAdmin)
+
+class IncidenceAdmin(LeafletGeoAdmin):
+    list_display = ('title','Constituency','date_reported')
+
+admin.site.register(Incidence,IncidenceAdmin)
