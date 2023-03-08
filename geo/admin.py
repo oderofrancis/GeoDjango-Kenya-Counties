@@ -18,3 +18,8 @@ class IncidenceAdmin(LeafletGeoAdmin):
     list_display = ('title','constituency','date_reported')
 
 admin.site.register(Incidence,IncidenceAdmin)
+
+class LocationAdmin(LeafletGeoAdmin):
+    list_display = ('name','address','county','constituency')
+
+admin.site.register(Location,LocationAdmin)
