@@ -25,7 +25,7 @@
 
 		var countyname = '{{countynames}}';
 
-		async function getData() {
+		async function getCounty() {
 			try {
 				let res = await fetch(`{% url 'county_data' %}`);
 				let data = await res.json();
@@ -58,7 +58,7 @@
 				console.error(err);
 			}
 		}
-		getData();
+		getCounty();
 
         // constituency
 
@@ -107,6 +107,32 @@
 			}
 		}
 		getConst();
+
+		// incidence data
+
+		async function getData() {
+			try {
+				let res = await fetch(`{% url 'incidence' %}`);
+				let data = await res.json();
+				let county_shp;
+
+				for (let i = 0; i < data.features.length; i++){
+					const feature = data.features[i];
+					// if (feature.properties.county === countyname) {
+					// 	county_shp = L.geoJSON(feature, {
+
+					// 	}).addTo(map);
+
+                        
+					// }
+
+					console.log(feature.properties.Constituency);
+				}
+			} catch(err) {
+				console.error(err);
+			}
+		}
+		getData();
 
     }
 

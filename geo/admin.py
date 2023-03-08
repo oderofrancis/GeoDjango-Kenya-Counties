@@ -15,6 +15,6 @@ class ConstituencyAdmin(LeafletGeoAdmin):
 admin.site.register(Constituency,ConstituencyAdmin)
 
 class IncidenceAdmin(LeafletGeoAdmin):
-    list_display = ('title','Constituency','date_reported')
+    list_display = ('title','constituency','date_reported')
 
 admin.site.register(Incidence,IncidenceAdmin)

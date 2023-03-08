@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
 from django.core.serializers import serialize
 import geopandas as gpd
+from .forms import *
 
 # Create your views here.
 
@@ -104,3 +105,24 @@ def county_data(request):
 def const_data(request):
     data = serialize('geojson',Constituency.objects.all())
     return HttpResponse(data,content_type='application/json')
+
+def incidence_data(request):
+    data = serialize('geojson',Incidence.objects.all())
+    return HttpResponse(data,content_type='application/json')
+
+
+# forms
+
+def incidence_form(request):
+    if request.method == 'POST':
+        form = IncidenceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = IncidenceForm()
+
+    context = {
+        'form':form,
+    }
+    return render(request,'incidence.html',context)

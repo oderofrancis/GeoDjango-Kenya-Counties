@@ -1,0 +1,88 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<!-- responsive line -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" href="/static/kenya.webp" type="image/x-icon">
+	
+	<title>Report - KENYA</title>
+	
+
+	 <!-- mdb bootstrap -->
+
+    <!-- Font Awesome -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+
+    <!-- Google Fonts -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+
+    <!-- MDB -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+
+
+	{% block form %}
+
+	{{ form.media }}
+
+	{% endblock form %}
+
+<body>
+
+	{% include 'navbar.html' %}
+
+
+	<div class="container-fluid">
+		<form method="POST" action="">
+
+            
+			<div class="row">
+
+				{% csrf_token %}
+
+				<div class="col-md-5">
+					<br>
+					<div class="card" style="height:630px;">
+						<div class="card-body">	
+							
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="col-md-7">
+					<br>
+					<div class="card card-body" style="height: 630px;">
+							
+					</div>
+				</div>
+			</div>
+			<br>
+			
+			<div class="col-md-12 text-center">
+				<button class="btn btn-primary" name="submit" value="Save" type="submit" style="width: 200px;">SUBMIT</button>
+			</div>
+				
+		</form>		
+	</div>
+
+	<br>
+
+</body>
+
+<!-- MDB -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</html>
+

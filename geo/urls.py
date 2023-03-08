@@ -10,4 +10,8 @@ urlpatterns = [
     path('const_table/',const_table,name='const_table'),
     path('county_data/',county_data,name='county_data'),
     path('const_data/',const_data,name='const_data'),
+    path('incidence/',incidence_data,name='incidence'),
+
+    # form
+    path('incidence_form/',incidence_form,name='incidence_form'),
 ]

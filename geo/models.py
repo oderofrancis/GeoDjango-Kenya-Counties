@@ -31,15 +31,21 @@ class Constituency(models.Model):
 
 class Incidence(models.Model):
     title = models.CharField(max_length=200)
-    Constituency = models.ForeignKey(Constituency, on_delete=models.CASCADE)
-    description =models.TextField(max_length=250, null=True)
+    county = models.ForeignKey(County, on_delete=models.CASCADE)
+    constituency = models.ForeignKey(
+        Constituency,
+        on_delete=models.CASCADE,
+        limit_choices_to={
+            'county': models.OuterRef('county'),
+        }
+    )
+    description = models.TextField(max_length=250, null=True, blank=True)
     date_reported = models.DateTimeField(auto_now_add=True)
     location = models.PointField(srid=4326)
     objects = GeoManager()
 
-    
     def __str__(self):
         return self.title
     
     class Meta:
-        verbose_name_plural = 'Incidence'
+        verbose_name_plural = 'Incidences'
