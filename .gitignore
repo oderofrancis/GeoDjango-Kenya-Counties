@@ -1,9 +1,9 @@
 env/
 
 geo/migrations/
-geo/migrations/__pycache__
-geo/migrations/0001_initial.py
-geo/migrations/__init__.py
+geo/migrations/__pycache__/
+geo/migrations/0001_initial.py/
+geo/migrations/__init__.py/
 
 
 .env
