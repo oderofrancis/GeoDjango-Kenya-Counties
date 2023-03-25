@@ -2,7 +2,7 @@ import os
 from django.contrib.gis.utils import LayerMapping
 from .models import Constituency
 
-# Auto-generated `LayerMapping` dictionary for County model
+# Auto-generated `LayerMapping` dictionary for Constituency model
 constituency_mapping = {
     'county_code': 'county_code',
     'county': 'county',

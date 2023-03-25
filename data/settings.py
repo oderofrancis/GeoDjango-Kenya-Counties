@@ -144,6 +144,7 @@ LEAFLET_CONFIG={
     'MAX_ZOOM':20,
     'MIN_ZOOM':6,
     'SCALE':'both',
+    'ATTRIBUTION_PREFIX':''
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

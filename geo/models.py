@@ -20,7 +20,7 @@ class County(models.Model):
 
 class Constituency(models.Model):
     county_code = models.IntegerField()
-    county = models.CharField(max_length=100)
+    county = models.CharField(max_length=100,blank=True,null=True)
     const_code = models.IntegerField()
     const = models.CharField(max_length=100)
     geom = models.MultiPolygonField(srid=4326)
@@ -46,24 +46,19 @@ class Incidence(models.Model):
     def __str__(self):
         return self.title
     
+    
     class Meta:
         verbose_name_plural = 'Incidences'
 
-
-class Location(models.Model):
+class mapping(models.Model):
     name = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
     county = models.ForeignKey(County, on_delete=models.CASCADE)
-    constituency = models.ForeignKey(Constituency,on_delete=models.CASCADE)
-    description = models.TextField(max_length=250, null=True, blank=True)
-    date_reported = models.DateTimeField(auto_now_add=True)
-    location = models.PointField(null=True, blank=True)
+    constituency = models.ForeignKey(Constituency, on_delete=models.CASCADE, null=True, blank=True)
+    geom = models.PointField(srid=4326)
+    objects = GeoManager()
 
-    def save(self, *args, **kwargs):
-        if self.address and not self.location:
-            from geopy.geocoders import Nominatim
-            geolocator = Nominatim(user_agent="my_app")
-            location = geolocator.geocode(f"{self.address}, {self.county}, {self.constituency}")
-            if location:
-                self.location = Point(location.longitude, location.latitude)
-        super(Location, self).save(*args, **kwargs)
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = 'Mapping'
