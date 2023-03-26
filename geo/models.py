@@ -16,7 +16,7 @@ class County(models.Model):
         return self.name
     
     class Meta:
-        verbose_name_plural = 'County'
+        verbose_name_plural = 'Counties'
 
 class Constituency(models.Model):
     county_code = models.IntegerField()
@@ -29,7 +29,20 @@ class Constituency(models.Model):
         return self.const
     
     class Meta:
-        verbose_name_plural = 'Constituency'
+        verbose_name_plural = 'Constituencies'
+
+class Ward(models.Model):
+    county = models.CharField(max_length=100)
+    const = models.CharField(max_length=100)
+    ward = models.CharField(max_length=100)
+    ward_code = models.IntegerField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return self.ward
+    
+    class Meta:
+        verbose_name_plural = 'Wards'
 
 class Incidence(models.Model):
     title = models.CharField(max_length=200)

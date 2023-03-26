@@ -6,13 +6,21 @@ from leaflet.admin import LeafletGeoAdmin
 
 class CountyAdmin(LeafletGeoAdmin):
     list_display = ('name','code')
+    search_fields = ('name','code')
 
 admin.site.register(County,CountyAdmin)
 
 class ConstituencyAdmin(LeafletGeoAdmin):
     list_display = ('const','county','const_code')
+    search_fields = ('const','county')
 
 admin.site.register(Constituency,ConstituencyAdmin)
+
+class WardAdmin(LeafletGeoAdmin):
+    list_display = ('ward','const','county')
+    search_fields = ('ward','const','county')
+
+admin.site.register(Ward,WardAdmin)
 
 class IncidenceAdmin(LeafletGeoAdmin):
     list_display = ('title','constituency','date_reported')

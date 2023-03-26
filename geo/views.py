@@ -52,6 +52,47 @@ def countydata(request):
     # map data
 
     showmap = 'False'
+    mapshow = 'True'
+
+    context = {
+        'countynames':countynames,
+        'countyNames':countyNames,
+        'countyValues':countyValues,
+        'showmap':showmap,
+
+        'constNames':constNames,
+        'constValues':constValues,
+    }
+
+    return render(request,'county.html',context)
+
+# ward
+
+def wardata(request):
+
+    countynames = request.POST.get('countynames')
+    constname = request.POST.get('constname')
+
+    data = serialize('geojson',County.objects.all())
+    data = gpd.read_file(data)
+    data = data.sort_values(by=['code'], ascending=True)
+    countyNames = data['name'].tolist()
+    countyValues = data['code'].tolist()
+
+    # constituency
+
+    datas = serialize('geojson',Constituency.objects.all())
+    datas = gpd.read_file(datas)
+
+    datas = datas[datas['county']==countynames]
+    datas = datas.sort_values(by=['const_code'], ascending=True)
+    constNames = datas['const'].str.replace(' ','-').tolist()
+    constValues = datas['const_code'].tolist()
+
+    # map data
+
+    showmap = 'False'
+    mapshow = 'False'
 
     context = {
         'countynames':countynames,
@@ -104,6 +145,10 @@ def county_data(request):
 
 def const_data(request):
     data = serialize('geojson',Constituency.objects.all())
+    return HttpResponse(data,content_type='application/json')
+
+def ward_data(request):
+    data = serialize('geojson',Ward.objects.all())
     return HttpResponse(data,content_type='application/json')
 
 def incidence_data(request):

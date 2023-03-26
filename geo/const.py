@@ -11,7 +11,7 @@ constituency_mapping = {
     'geom': 'MULTIPOLYGON',
 }
 
-constituency_shp = os.path.abspath(os.path.join(os.path.dirname(__file__),'data', 'constituencys.geojson'))
+constituency_shp = os.path.abspath(os.path.join(os.path.dirname(__file__),'data', 'constituency.geojson'))
 
 def run(verbose=True):
     lm = LayerMapping(Constituency, constituency_shp,constituency_mapping, transform=False, encoding='iso-8859-1')
