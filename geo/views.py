@@ -59,6 +59,7 @@ def countydata(request):
         'countyNames':countyNames,
         'countyValues':countyValues,
         'showmap':showmap,
+        'mapshow':mapshow,
 
         'constNames':constNames,
         'constValues':constValues,
@@ -99,9 +100,11 @@ def wardata(request):
         'countyNames':countyNames,
         'countyValues':countyValues,
         'showmap':showmap,
+        'mapshow':mapshow,
 
         'constNames':constNames,
         'constValues':constValues,
+        'constname':constname,
     }
 
     return render(request,'county.html',context)
