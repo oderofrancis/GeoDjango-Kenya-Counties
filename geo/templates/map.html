@@ -19,6 +19,9 @@
         const CyclOSM = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
             });
 
+		const OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			});
+
         /* data */
 
         
@@ -66,12 +69,12 @@
 			try {
 				let res = await fetch(`{% url 'const_data' %}`);
 				let data = await res.json();
-				let county_shp;
+				let const_shp;
 
 				for (let i = 0; i < data.features.length; i++){
 					const feature = data.features[i];
 					if (feature.properties.county === countyname) {
-						county_shp = L.geoJSON(feature, {
+						const_shp = L.geoJSON(feature, {
 							style: function(feature) {
 								return {
 									color: 'black',
@@ -108,6 +111,54 @@
 		}
 		getConst();
 
+		// wards in a county
+
+		async function getWard() {
+			try {
+				let res = await fetch(`{% url 'ward_data' %}`);
+				let data = await res.json();
+				let ward_shp;
+
+				for (let i = 0; i < data.features.length; i++){
+					const feature = data.features[i];
+					if (feature.properties.county === countyname) {
+						ward_shp = L.geoJSON(feature, {
+							style: function(feature) {
+								return {
+									color: 'blue',
+									weight: 2,
+									opacity: 0.8,
+									fillOpacity: 0.01,
+									fillColor: 'black'
+								}
+							},
+
+							onEachFeature:function(feature,layer){
+								if(feature.properties){
+									var content="<table class='table table-striped table-bordered table-condensed'>" 
+										+"<tr><th>County:</th><td>" + feature.properties.county+ "</td></tr>" 
+										+ "<tr><th>Const:</th><td>" + feature.properties.const  + "</td></tr>"
+										+ "<tr><th>Ward:</th><td>" + feature.properties.ward  + "</td></tr>"
+									+"<table>";
+									layer.on({
+										click: function (e) {
+											layer.bindPopup(content).openPopup(e.latlng);
+										}
+									});
+								}
+							},
+
+						}).addTo(map);
+
+                        console.log(feature.properties.county);
+					}
+				}
+			} catch(err) {
+				console.error(err);
+			}
+		}
+		getWard();
+
 		// incidence data
 
 		async function getData() {
@@ -126,7 +177,7 @@
                         
 					// }
 
-					console.log(feature.properties.Constituency);
+					// console.log(feature.properties.Constituency);
 				}
 			} catch(err) {
 				console.error(err);
@@ -134,11 +185,30 @@
 		}
 		getData();
 
+		// leaflet layer control
+
+			var baseLayers = {
+			"OpenStreetMap": OpenStreetMap,
+			"CyclOSM":CyclOSM,
+			};
+
+			// create an overlay layer object
+			var overlayLayers = {
+
+			};
+
+			// add the Layers Control to the map
+			L.control.layers(baseLayers, overlayLayers).addTo(map);
+
+
+
     }
 
 </script>
 
 <script src="https://unpkg.com/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
+
+<script src="https://unpkg.com/leaflet-control-layers@3.0.0/dist/leaflet.control.layers.js"></script>
 
 {% leaflet_map "gis" callback="window.our_layers" %}
 
