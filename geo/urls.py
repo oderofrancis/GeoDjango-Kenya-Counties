@@ -5,7 +5,6 @@ urlpatterns = [
     path('',home,name='home'),
     path('county/',county,name='county'),
     path('county/view',countydata,name='countys'),
-    path('county/consts',wardata,name='consts'),
     path('const/',const,name='const'),
     path('county_table/',county_table,name='county_table'),
     path('const_table/',const_table,name='const_table'),
